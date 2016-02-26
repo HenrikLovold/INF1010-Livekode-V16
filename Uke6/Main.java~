@@ -7,9 +7,9 @@ class Main {
 		frozen.nyttKapittel(new Kapittel(3, "Kommer til hytta og møter Kristoffer"));
 		frozen.nyttKapittel(new Kapittel(4, "Ulver jager dem"));
 		
-		frozen.fjern(5);
-		
-		frozen.skrivHistorie();
+		for(Kapittel k : frozen) {
+			System.out.println(k);
+		}
 		
 	}
 }

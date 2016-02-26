@@ -3,7 +3,6 @@ import java.util.Iterator;
 class Lenkehistorie implements Iterable<Kapittel> {
 
 	private Node forste;
-	static int index = 0;
 	
 	public void nyttKapittel(Kapittel kap) {
 		Node ny = new Node(kap);
@@ -31,29 +30,45 @@ class Lenkehistorie implements Iterable<Kapittel> {
 		}
 	}
 	
+	public void slettStorste() {
+		if(forste != null) {
+			Kapittel storst = forste.kapittel;
+			int storstIdx = storst.getNummer();
+			
+			for(Kapittel k : this) {
+				if(storst.compareTo(k) > 0) {
+					storst = k;
+					storstIdx = k.getNummer();
+				}
+			}
+			System.out.println(storstIdx);
+			fjern(storstIdx);
+		}
+	}
+	
 	public boolean fjern(int index) {
 		Node midl = forste;
-		boolean fjernet = false;
-		if(midl != null) {
-			if(index == 0) {
-				forste = midl.neste;
-				fjernet = true;
-			}
-			while(midl.neste != null) {
-				if(midl.neste.minIndex == index) {
-					midl.neste = midl.neste.neste;
-					fjernet = true;
-				}
-				if(fjernet) {
-					midl.neste.minIndex--;
-				}
-				midl = midl.neste;
-			}
+		
+		if(midl == null) {
+			return false;
 		}
-		if(fjernet) {
-			this.index--;
+		
+		if(midl.minIndex == index) {
+			forste = midl.neste;
+			return true;
 		}
-		return fjernet;
+		
+		while(midl.neste != null) {
+			if(midl.neste.minIndex == index) {
+				midl.neste = midl.neste.neste;
+				return true;
+			}
+			
+			midl = midl.neste;
+		}
+		
+		return false;
+		
 	}
 	
 	public Iterator iterator() {
@@ -88,8 +103,9 @@ class Lenkehistorie implements Iterable<Kapittel> {
 		Node neste;
 		
 		public Node(Kapittel kapittel) {
-			minIndex = index++;
+			minIndex = kapittel.getNummer();
 			this.kapittel = kapittel;
+			System.out.println(this.minIndex);
 		}
 	}
 }

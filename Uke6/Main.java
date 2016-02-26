@@ -11,5 +11,11 @@ class Main {
 			System.out.println(k);
 		}
 		
+		frozen.slettStorste();
+		
+		for(Kapittel k : frozen) {
+			System.out.println(k);
+		}
+		
 	}
 }
