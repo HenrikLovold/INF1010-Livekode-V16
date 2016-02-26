@@ -1,7 +1,6 @@
 class Lenkehistorie {
 
 	private Node forste;
-	static int index = 0;
 	
 	public void nyttKapittel(String kap) {
 		Node ny = new Node(kap);

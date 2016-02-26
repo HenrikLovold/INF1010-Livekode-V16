@@ -10,8 +10,6 @@ class Main {
 		frozen.nyttKapittel("Anna fryser nesten til is");
 		frozen.nyttKapittel("Elsa redder Anna, Hans (slem) blir fengslet");
 		
-		frozen.fjern(5);
-		
 		frozen.skrivHistorie();
 	}
 }

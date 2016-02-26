@@ -1,9 +1,11 @@
-class Lenkehistorie {
+import java.util.Iterator;
+
+class Lenkehistorie implements Iterable<Kapittel> {
 
 	private Node forste;
 	static int index = 0;
 	
-	public void nyttKapittel(String kap) {
+	public void nyttKapittel(Kapittel kap) {
 		Node ny = new Node(kap);
 		Node midl = forste;
 		
@@ -54,12 +56,38 @@ class Lenkehistorie {
 		return fjernet;
 	}
 	
+	public Iterator iterator() {
+		return new HistorieIterator();
+	}
+	
+	public class HistorieIterator implements Iterator<Kapittel> {
+	
+		Node midl = forste;
+		
+		public boolean hasNext() {
+			if(midl == null) {
+				return false;
+			}
+			return true;
+		}
+		
+		public Kapittel next() {
+			Kapittel ret = midl.kapittel;
+			midl = midl.neste;
+			return ret;
+		}
+		
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+	}
+	
 	private class Node {
 		int minIndex;
-		String kapittel;
+		Kapittel kapittel;
 		Node neste;
 		
-		public Node(String kapittel) {
+		public Node(Kapittel kapittel) {
 			minIndex = index++;
 			this.kapittel = kapittel;
 		}
